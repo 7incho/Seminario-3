@@ -1,11 +1,15 @@
 import React from 'react';
+import { useAuth } from '../contexts/AuthContext';
 
 function Modulo2() {
+  const { user } = useAuth();
+  console.log(user);
+
   return (
     <div className="h-full">
       <div className="grid grid-cols-3 gap-4 h-full">
         <div className="col-span-2 bg-blue-300 p-4 rounded-lg flex items-center justify-center">
-          <h2 className="text-lg font-semibold">Buen día, Alejandra</h2>
+          <h2 className="text-lg font-semibold">Buen día, {user.nombre}</h2>
         </div>
         <div className="bg-blue-300 p-4 rounded-lg flex items-center justify-center">
           <h2 className="text-lg font-semibold">HH:MM</h2>
