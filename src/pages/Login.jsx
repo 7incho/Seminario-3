@@ -85,9 +85,9 @@ function Login() {
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <div className="text-sm text-right">
-            <Link to="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
+            <p to="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
               ¿Olvidaste tu contraseña?
-            </Link>
+            </p>
           </div>
 
           <div>
