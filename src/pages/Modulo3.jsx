@@ -1,10 +1,17 @@
 import React from 'react'
+import DocumentacionAdmin from '../components/DocumentacionAdmin'
+import DocumentacionUser from '../components/DocumentacionUser'
+import { useAuth } from '../contexts/AuthContext'
 
 function Modulo3() {
+
+   const { user } = useAuth();
+
  return (
  <div>
-    <h1 className="text-2xl font-bold">Documentación</h1>
-    <p>Esta es la documentación.</p>
+    {
+         user.rol === 'admin' ? <DocumentacionAdmin /> : <DocumentacionUser />
+    }
  </div>
  )
 }
