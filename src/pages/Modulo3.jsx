@@ -10,7 +10,7 @@ function Modulo3() {
  return (
  <div>
     {
-         user.rol === 'admin' ? <DocumentacionAdmin /> : <DocumentacionUser />
+         user.rol === 'admin' ? <DocumentacionAdmin user={user} /> : <DocumentacionUser user={user}/>
     }
  </div>
  )

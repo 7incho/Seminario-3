@@ -1,6 +1,8 @@
-import React from 'react'
+import React,{ useState } from 'react'
 
-function DocumentacionAdmin() {
+function DocumentacionAdmin(user) {
+   console.log(user);
+   
  return (
  <div>
     <h1 className="text-2xl font-bold">Documentación Profesor</h1>
