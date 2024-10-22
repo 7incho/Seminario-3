@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { FiUpload, FiFile, FiTrash2, FiEye } from 'react-icons/fi'
+import { useDocuments } from '../contexts/DocumentsContext'
 
 function DocumentacionAdmin({ user }) {
-  const [documents, setDocuments] = useState([])
-  const [documentToDelete, setDocumentToDelete] = useState(null)
+  const { documents, addDocuments, removeDocument } = useDocuments();
+  const [documentToDelete, setDocumentToDelete] = useState(null);
 
   const onDrop = useCallback((acceptedFiles) => {
     const newDocuments = acceptedFiles.map(file => ({
@@ -12,9 +13,9 @@ function DocumentacionAdmin({ user }) {
       name: file.name,
       file: file,
       uploadDate: new Date().toLocaleString()
-    }))
-    setDocuments(prevDocuments => [...prevDocuments, ...newDocuments])
-  }, [])
+    }));
+    addDocuments(newDocuments);
+  }, [addDocuments]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -23,27 +24,27 @@ function DocumentacionAdmin({ user }) {
       'application/msword': ['.doc'],
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
     }
-  })
+  });
 
-  const removeDocument = (id) => {
-    setDocumentToDelete(id)
-  }
+  const handleRemoveDocument = (id) => {
+    setDocumentToDelete(id);
+  };
 
   const confirmDelete = () => {
     if (documentToDelete) {
-      setDocuments(prevDocuments => prevDocuments.filter(doc => doc.id !== documentToDelete))
-      setDocumentToDelete(null)
+      removeDocument(documentToDelete);
+      setDocumentToDelete(null);
     }
-  }
+  };
 
   const cancelDelete = () => {
-    setDocumentToDelete(null)
-  }
+    setDocumentToDelete(null);
+  };
 
   const viewDocument = (file) => {
-    const fileURL = URL.createObjectURL(file)
-    window.open(fileURL, '_blank')
-  }
+    const fileURL = URL.createObjectURL(file);
+    window.open(fileURL, '_blank');
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -77,7 +78,7 @@ function DocumentacionAdmin({ user }) {
                     <FiEye />
                   </button>
                   <button
-                    onClick={() => removeDocument(doc.id)}
+                    onClick={() => handleRemoveDocument(doc.id)}
                     className="text-red-500 hover:text-red-700 p-1"
                     aria-label="Eliminar documento"
                   >
@@ -113,7 +114,7 @@ function DocumentacionAdmin({ user }) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default DocumentacionAdmin
+export default DocumentacionAdmin;
